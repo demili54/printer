@@ -3,84 +3,321 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:gravity="left"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/button_bluetooth_browse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="프린터 찾기" />
+        <Button
+            android:id="@+id/btnReprint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="재출력하기" />
+
+        <Button
+            android:id="@+id/button_bluetooth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="출력하기" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="차번호"
+            android:textFontWeight="400"
+            />
+        <!--//               번호 설정                        //-->
+        <EditText
+            android:id="@+id/carNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/border"
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            android:focusable="false"
+            android:text="12가3456" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="기록간격(분)"
+            android:textFontWeight="400" />
+
+        <EditText
+            android:id="@+id/timeTerm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:digits="0123456789"
+            android:inputType="numberDecimal"
+            android:text="10"
+            android:textColor="@color/black"
+            android:background="@drawable/border"
+            android:textSize="25dp"/>
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="Click to print !" />
+            android:layout_marginLeft="5dp"
+            android:text="상호" />
 
+        <EditText
+            android:id="@+id/companyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/border"
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            android:hint="상호명"
+             />
 
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            android:textAlignment="center"
-            android:orientation="horizontal">
+            android:layout_marginLeft="5dp"
+            android:text="시작" />
 
-            <Button
-                android:id="@+id/button_bluetooth_browse"
+        <TextView
+            android:id="@+id/startTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:inputType="number"
+            android:textSize="25dp"
+            android:background="@drawable/border"
+            android:textColor="@color/black"
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="종료" />
+
+        <TextView
+            android:id="@+id/endTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:inputType="number"
+            android:textSize="25dp"
+            android:background="@drawable/border"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="온도기록" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/aSelect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="Default printer"/>
+                android:checked="true"
+                android:text="A출력" />
 
-            <Button
-                android:id="@+id/button_bluetooth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Print by bluetooth !" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="기준" />
+
+                <EditText
+                    android:id="@+id/temperatureA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:digits="+-0123456789."
+                    android:inputType="number"
+                    android:minWidth="50dp"
+                    android:textAlignment="center"
+                    android:text="-20"
+                    android:background="@drawable/border"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="±" />
+                <EditText
+                    android:id="@+id/temperatureACha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:digits="0123456789"
+                    android:inputType="number"
+                    android:minWidth="50dp"
+                    android:textAlignment="center"
+                    android:text="3"
+                    android:background="@drawable/border"/>
+
+
         </LinearLayout>
 
-        <Button
-            android:id="@+id/button_usb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="Print by USB !" />
-
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/bSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+
+                android:text="B출력" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="기준" />
+
+            <EditText
+                android:id="@+id/temperatureB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:digits="+-0123456789."
+                android:inputType="number"
+                android:minWidth="50dp"
+                android:text="-20"
+                android:textAlignment="center"
+                android:background="@drawable/border"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:text="IP :" />
-
+                android:text="±" />
             <EditText
-                android:id="@+id/edittext_tcp_ip"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:digits="0123456789."
-                android:inputType="number" />
-
-            <TextView
+                android:id="@+id/temperatureBCha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="Port :" />
-
-            <EditText
-                android:id="@+id/edittext_tcp_port"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:inputType="number" />
+                android:digits="0123456789"
+                android:inputType="number"
+                android:minWidth="50dp"
+                android:textAlignment="center"
+                android:text="3"
+                android:background="@drawable/border"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/button_tcp"
-            android:layout_width="wrap_content"
+    </LinearLayout>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="종료문구" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioGroup
+            android:id="@+id/endComment"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="Print by TCP !" />
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/endCommentStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:checked="true"
+                android:inputType="number"
+                android:text="USER STOP" />
+
+            <RadioButton
+                android:id="@+id/endCommentOff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:inputType="number"
+                android:text="PRINT AFTER POWER ON" />
+        </RadioGroup>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/imageTempL"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textSize="26dp"
+        android:textColor="@color/black"
+        android:background="@color/white"
+        android:text=" " />
+    <TextView
+        android:id="@+id/imageTempR"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textSize="26dp"
+        android:textColor="@color/black"
+        android:background="@color/white"
+        android:paddingLeft="50dp"
+        android:text="" />
+    
+
 
 </LinearLayout>

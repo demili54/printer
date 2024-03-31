@@ -30,6 +30,10 @@ public class BluetoothConnection extends DeviceConnection {
         this.device = device;
     }
 
+    public static UUID getSppUuid() {
+        return SPP_UUID;
+    }
+
     /**
      * Get the instance BluetoothDevice connected.
      *
