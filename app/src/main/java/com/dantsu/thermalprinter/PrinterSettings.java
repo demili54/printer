@@ -6,8 +6,9 @@ import android.app.Activity;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -28,22 +29,24 @@ public class PrinterSettings {
         }
     }
     private Button printName;
-    private TextView carNumber;
-    private TextView minutes;
-    private TextView companyName;
+    private EditText carNumber;
+    private EditText minutes;
+    private EditText companyName;
 
     private Calendar startTime;
-    private TextView startTimeView;
+    private EditText startTimeView;
     private Calendar endTime;
-    private TextView endTimeView;
+    private EditText endTimeView;
 
     private CheckBox checkA;
     private CheckBox checkB;
 
-    private TextView temperatureA;
-    private TextView temperatureACha;
-    private TextView temperatureB;
-    private TextView temperatureBCha;
+    private EditText temperatureA;
+    private EditText temperatureACha;
+    private EditText temperatureAChaJum;
+    private EditText temperatureB;
+    private EditText temperatureBCha;
+    private EditText temperatureBChaJum;
 
     private RadioButton endCommentStop;
     private RadioButton endCommentOff;
@@ -63,7 +66,7 @@ public class PrinterSettings {
         return getTString(carNumber);
     }
 
-    public void setCarNumber(TextView carNumber) {
+    public void setCarNumber(EditText carNumber) {
         this.carNumber = carNumber;
     }
     public void setCarNumber(String carNumber) {
@@ -76,7 +79,7 @@ public class PrinterSettings {
         return getTInteger(minutes);
     }
 
-    public void setMinutes(TextView minutes) {
+    public void setMinutes(EditText minutes) {
         this.minutes = minutes;
     }
     public void setMinutes(String minutes) {
@@ -86,12 +89,12 @@ public class PrinterSettings {
     public String getCompanyName() {
         return getTString(companyName);
     }
-    public TextView getCompanyName(String text) {
+    public EditText getCompanyName(String text) {
          companyName.setText(text);
         return companyName;
     }
 
-    public void setCompanyName(TextView companyName) {
+    public void setCompanyName(EditText companyName) {
         this.companyName = companyName;
     }
     public void setCompanyName(String companyName) {
@@ -113,19 +116,19 @@ public class PrinterSettings {
         this.endTime = endTime;
     }
 
-    public TextView getStartTimeView() {
+    public EditText getStartTimeView() {
         return startTimeView;
     }
 
-    public void setStartTimeView(TextView startTimeView) {
+    public void setStartTimeView(EditText startTimeView) {
         this.startTimeView = startTimeView;
     }
 
-    public TextView getEndTimeView() {
+    public EditText getEndTimeView() {
         return endTimeView;
     }
 
-    public void setEndTimeView(TextView endTimeView) {
+    public void setEndTimeView(EditText endTimeView) {
         this.endTimeView = endTimeView;
     }
 
@@ -155,7 +158,7 @@ public class PrinterSettings {
         return getTFloat(temperatureA);
     }
 
-    public void setTemperatureA(TextView temperatureA) {
+    public void setTemperatureA(EditText temperatureA) {
         this.temperatureA = temperatureA;
     }
     public void setTemperatureA(String temperatureA) {
@@ -166,7 +169,7 @@ public class PrinterSettings {
         return getTFloat(temperatureB);
     }
 
-    public void setTemperatureB(TextView temperatureB) {
+    public void setTemperatureB(EditText temperatureB) {
         this.temperatureB = temperatureB;
     }
 
@@ -198,14 +201,14 @@ public class PrinterSettings {
         return endCommentOff.isChecked();
     }
 
-    public String getTString(TextView textView){
-        return textView.getText().toString();
+    public String getTString(EditText EditText){
+        return EditText.getText().toString();
     }
-    public Integer getTInteger(TextView textView){
-        return Integer.valueOf(textView.getText().toString());
+    public Integer getTInteger(EditText EditText){
+        return Integer.valueOf(EditText.getText().toString());
     }
-    public Float getTFloat(TextView textView){
-        return Float.valueOf(textView.getText().toString());
+    public Float getTFloat(EditText EditText){
+        return Float.valueOf(EditText.getText().toString());
     }
 
     public Integer getTemperatureACha() {
@@ -213,7 +216,7 @@ public class PrinterSettings {
     }
 
 
-    public void setTemperatureACha(TextView temperatureACha) {
+    public void setTemperatureACha(EditText temperatureACha) {
         this.temperatureACha = temperatureACha;
     }
     public void setTemperatureACha(String temperatureACha) {
@@ -227,7 +230,7 @@ public class PrinterSettings {
         return getTInteger(temperatureBCha);
     }
 
-    public void setTemperatureBCha(TextView temperatureBCha) {
+    public void setTemperatureBCha(EditText temperatureBCha) {
         this.temperatureBCha = temperatureBCha;
     }
     public void setTemperatureBCha(String temperatureBCha) {
@@ -235,6 +238,33 @@ public class PrinterSettings {
             temperatureBCha="3";
         }
         this.temperatureBCha.setText(temperatureBCha);
+    }
+
+    public Integer getTemperatureAChaJum() {
+        return getTInteger(temperatureAChaJum);
+    }
+
+    public void setTemperatureAChaJum(EditText temperatureAChaJum) {
+        this.temperatureAChaJum = temperatureAChaJum;
+    }
+    public void setTemperatureAChaJum(String temperatureAChaJum) {
+        if(temperatureAChaJum.trim().length()<1){
+            temperatureAChaJum="0";
+        }
+        this.temperatureAChaJum.setText(temperatureAChaJum);
+    }
+    public Integer getTemperatureBChaJum() {
+        return getTInteger(temperatureBChaJum);
+    }
+
+    public void setTemperatureBChaJum(EditText temperatureBChaJum) {
+        this.temperatureBChaJum = temperatureBChaJum;
+    }
+    public void setTemperatureBChaJum(String temperatureBChaJum) {
+        if(temperatureBChaJum.trim().length()<1){
+            temperatureBChaJum="0";
+        }
+        this.temperatureBChaJum.setText(temperatureBChaJum);
     }
 
 

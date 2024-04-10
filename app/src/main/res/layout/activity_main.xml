@@ -64,16 +64,18 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:background="@drawable/border"
-            android:textSize="25dp"
-            android:textColor="@color/black"
             android:focusable="false"
-            android:text="12가3456" />
+            android:text="12가3456"
+            android:textColor="@color/black"
+            android:textSize="25dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="기록간격(분)"
             android:textFontWeight="400" />
+
 
         <EditText
             android:id="@+id/timeTerm"
@@ -82,13 +84,12 @@
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:background="@drawable/border"
             android:digits="0123456789"
             android:inputType="numberDecimal"
             android:text="10"
             android:textColor="@color/black"
-            android:background="@drawable/border"
-            android:textSize="25dp"/>
-
+            android:textSize="25dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -205,6 +206,22 @@
                     android:textAlignment="center"
                     android:text="3"
                     android:background="@drawable/border"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="." />
+            <EditText
+                android:id="@+id/temperatureAChaJum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:digits="0123456789"
+                android:inputType="number"
+                android:minWidth="50dp"
+                android:textAlignment="center"
+                android:text="0"
+                android:background="@drawable/border"/>
 
 
         </LinearLayout>
@@ -255,6 +272,22 @@
                 android:minWidth="50dp"
                 android:textAlignment="center"
                 android:text="3"
+                android:background="@drawable/border"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="." />
+            <EditText
+                android:id="@+id/temperatureBChaJum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:digits="0123456789"
+                android:inputType="number"
+                android:minWidth="50dp"
+                android:textAlignment="center"
+                android:text="0"
                 android:background="@drawable/border"/>
         </LinearLayout>
 

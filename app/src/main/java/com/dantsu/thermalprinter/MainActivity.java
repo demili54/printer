@@ -25,6 +25,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -161,13 +162,15 @@ public class MainActivity extends AppCompatActivity {
     public void bindAll(){
         textToImageService=new TextToImageService((TextView) me.findViewById(R.id.imageTempL),(TextView) me.findViewById(R.id.imageTempR));
         printerSettings.setPrintName((Button)me.findViewById(R.id.button_bluetooth_browse));
-        printerSettings.setCarNumber((TextView) me.findViewById(R.id.carNumber));
-        printerSettings.setMinutes((TextView) me.findViewById(R.id.timeTerm));
-        printerSettings.setCompanyName((TextView) me.findViewById(R.id.companyName));
-        printerSettings.setTemperatureA((TextView) me.findViewById(R.id.temperatureA));
-        printerSettings.setTemperatureB((TextView) me.findViewById(R.id.temperatureB));
-        printerSettings.setTemperatureACha((TextView) me.findViewById(R.id.temperatureACha));
-        printerSettings.setTemperatureBCha((TextView) me.findViewById(R.id.temperatureBCha));
+        printerSettings.setCarNumber((EditText) me.findViewById(R.id.carNumber));
+        printerSettings.setMinutes((EditText) me.findViewById(R.id.timeTerm));
+        printerSettings.setCompanyName((EditText) me.findViewById(R.id.companyName));
+        printerSettings.setTemperatureA((EditText) me.findViewById(R.id.temperatureA));
+        printerSettings.setTemperatureB((EditText) me.findViewById(R.id.temperatureB));
+        printerSettings.setTemperatureACha((EditText) me.findViewById(R.id.temperatureACha));
+        printerSettings.setTemperatureBCha((EditText) me.findViewById(R.id.temperatureBCha));
+        printerSettings.setTemperatureAChaJum((EditText) me.findViewById(R.id.temperatureAChaJum));
+        printerSettings.setTemperatureBChaJum((EditText) me.findViewById(R.id.temperatureBChaJum));
 
         printerSettings.setCheckA((CheckBox) me.findViewById(R.id.aSelect));
         printerSettings.setCheckB((CheckBox) me.findViewById(R.id.bSelect));
@@ -287,6 +290,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //return 안됬을경우
                 selectedDevice = first;
+                if(selectedDevice==null){
+                    debug();
+                    return;
+                }
                 String firstName = first.getDevice().getName();
                 printerSettings.getPrintNameBtn().setText(firstName);
                 saveData("printerName",firstName);
@@ -295,6 +302,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void printBluetooth() {
+
         if(!printerSettings.validata(this)){
             return;
         }
@@ -456,6 +464,48 @@ public class MainActivity extends AppCompatActivity {
 
         return printer;
     }
+    public void debug(){
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy년 MM월 dd일");
+        SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat formatDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        double gap = Math.random();
+
+
+        //차량번호 + 기록간격 + 상호
+        boolean run = true;
+        Calendar start = printerSettings.getStartTime();
+        Calendar end = printerSettings.getEndTime();
+
+        Calendar currentTime = Calendar.getInstance();
+        currentTime.setTime(end.getTime());
+
+        String printerText="";
+
+        String currentDateString = formatDate.format(end.getTime());
+        while(run){
+            currentTime.add(Calendar.MINUTE, -1*printerSettings.getMinutes());
+            if(!currentDateString.equals(formatDate.format(currentTime.getTime()))){
+
+            }
+            Log.d("currentTime==",formatDateTime.format(currentTime.getTime()));
+            if(start.after(currentTime)){
+                run=false;
+                break;
+            }
+            //printerText+="[R]"+genTemperature(formatTime.format(currentTime.getTime()),false,false) + "\n";
+            printerText+=genTemperature(formatTime.format(currentTime.getTime()),false,false);
+            printerText+="\n";
+        }
+        //printerText+="[R]"+genTemperature(formatTime.format(start.getTime()),false,true) + "\n\n";
+        printerText+=genTemperature(formatTime.format(start.getTime()),false,true);
+        //printerText+="[L]"+printerSettings.getLastComment().getCode() + "\n";
+        printerText+=printerSettings.getLastComment().getCode();
+
+        System.out.println(printerText);
+
+        saveData("lastPrint",printerText);
+    }
 
     public void lastPrint() {
         this.checkBluetoothPermissions(() -> {
@@ -503,8 +553,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         returnString +=position;
-        float chaA = printerSettings.getTemperatureACha();
-        float chaB = printerSettings.getTemperatureBCha();
+        float chaA = ceil((printerSettings.getTemperatureACha()+(printerSettings.getTemperatureAChaJum()/10f))/2d,1);
+        float chaB = ceil((printerSettings.getTemperatureBCha()+(printerSettings.getTemperatureBChaJum()/10f))/2d,1);
         if(printerSettings.getCheckA()){
             AB="A: ";
             returnString +=AB;
@@ -586,6 +636,8 @@ public class MainActivity extends AppCompatActivity {
         saveData("temperatureB",printerSettings.getTemperatureB().toString());
         saveData("temperatureACha",printerSettings.getTemperatureACha().toString());
         saveData("temperatureBCha",printerSettings.getTemperatureBCha().toString());
+        saveData("temperatureAChaJum",printerSettings.getTemperatureAChaJum().toString());
+        saveData("temperatureBChaJum",printerSettings.getTemperatureBChaJum().toString());
 
 
         //종료문구
@@ -615,6 +667,8 @@ public class MainActivity extends AppCompatActivity {
         printerSettings.setTemperatureB(loadData("temperatureB","-20"));
         printerSettings.setTemperatureACha(loadData("temperatureACha","3"));
         printerSettings.setTemperatureBCha(loadData("temperatureBCha","3"));
+        printerSettings.setTemperatureAChaJum(loadData("temperatureAChaJum","0"));
+        printerSettings.setTemperatureBChaJum(loadData("temperatureBChaJum","0"));
 
         //종료문구
         printerSettings.setLastComment(loadData("endCommentStop","true"),loadData("endCommentOff","false"));
