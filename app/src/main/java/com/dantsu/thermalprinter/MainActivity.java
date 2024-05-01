@@ -400,7 +400,7 @@ public class MainActivity extends AppCompatActivity {
      */
     @SuppressLint("SimpleDateFormat")
     public AsyncEscPosPrinter getAsyncEscPosPrinter(DeviceConnection printerConnection) {
-        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy년 MM월 dd일");
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy年 MM月 dd日");
         SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
         SimpleDateFormat formatDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
@@ -412,7 +412,7 @@ public class MainActivity extends AppCompatActivity {
 
         //차량번호 + 기록간격 + 상호
         String printerText ="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageL("차량번호 : "+printerSettings.getCarNumber()))+"</img>\n";
-        printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageL("기록간격 : "+printerSettings.getMinutes()))+"</img>\n";
+        printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageL("기록간격 : "+printerSettings.getMinutes()+ " 분"))+"</img>\n";
         printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageL("상   호 : "+printerSettings.getCompanyName()))+"</img>\n";
         printerText+="[L]\n";
         printerText+="[L]\n";
@@ -437,8 +437,7 @@ public class MainActivity extends AppCompatActivity {
                 printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageL(currentDateString))+"</img>\n\n";
 
             }
-            Log.d("currentTime==",formatDateTime.format(currentTime.getTime()));
-            if(start.after(currentTime)){
+            if(start.after(currentTime) || start.equals(currentTime)){
                 run=false;
                 break;
             }
@@ -488,7 +487,6 @@ public class MainActivity extends AppCompatActivity {
             if(!currentDateString.equals(formatDate.format(currentTime.getTime()))){
 
             }
-            Log.d("currentTime==",formatDateTime.format(currentTime.getTime()));
             if(start.after(currentTime)){
                 run=false;
                 break;
