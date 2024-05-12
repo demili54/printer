@@ -17,7 +17,7 @@ import java.util.Calendar;
 public class PrinterSettings {
     public enum LAST_COMMENT{
 
-        USER_STOP("USER_STOP"),PRINT_AFTER_POWER_ON("PRINT AFTER POWER ON");
+        USER_STOP("USER STOP"),PRINT_AFTER_POWER_ON("PRINT AFTER POWER ON");
         private String code;
 
         LAST_COMMENT(String code) {

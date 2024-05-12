@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         me =this;
-        printerSettings=new PrinterSettings();
+        this.printerSettings=new PrinterSettings();
 
 
 
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void bindAll(){
-        textToImageService=new TextToImageService((TextView) me.findViewById(R.id.imageTempL),(TextView) me.findViewById(R.id.imageTempR));
+        textToImageService=new TextToImageService((TextView) me.findViewById(R.id.imageTempL),(TextView) me.findViewById(R.id.imageTempR),(TextView) me.findViewById(R.id.imageTempC),(TextView) me.findViewById(R.id.imageTempLineFeed),this.printerSettings);
         printerSettings.setPrintName((Button)me.findViewById(R.id.button_bluetooth_browse));
         printerSettings.setCarNumber((EditText) me.findViewById(R.id.carNumber));
         printerSettings.setMinutes((EditText) me.findViewById(R.id.timeTerm));
@@ -426,29 +426,28 @@ public class MainActivity extends AppCompatActivity {
 
 
         String currentDateString = formatDate.format(end.getTime());
-        printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageL(currentDateString))+"</img>\n\n";
-        //printerText+="[R]"+genTemperature(formatTime.format(end.getTime()),true,false) + "\n";
-        printerText+="[R]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageR(genTemperature(formatTime.format(end.getTime()),true,false)))+"</img>\n";
+        printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageL(currentDateString))+"</img>\n";
+        printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageAuto(genTemperature(formatTime.format(end.getTime()),true,false)))+"</img>\n";
         while(run){
             currentTime.add(Calendar.MINUTE, -1*printerSettings.getMinutes());
-            if(!currentDateString.equals(formatDate.format(currentTime.getTime()))){
-                printerText+="[L]\n";
-                currentDateString=formatDate.format(currentTime.getTime());
-                printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageL(currentDateString))+"</img>\n\n";
-
-            }
             if(start.after(currentTime) || start.equals(currentTime)){
                 run=false;
                 break;
             }
-            //printerText+="[R]"+genTemperature(formatTime.format(currentTime.getTime()),false,false) + "\n";
-            printerText+="[R]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageR(genTemperature(formatTime.format(currentTime.getTime()),false,false)))+"</img>\n";
-        }
-        //printerText+="[R]"+genTemperature(formatTime.format(start.getTime()),false,true) + "\n\n";
-        printerText+="[R]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageR(genTemperature(formatTime.format(start.getTime()),false,true)))+"</img>\n\n";
-        //printerText+="[L]"+printerSettings.getLastComment().getCode() + "\n";
-        printerText+="[R]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageR(printerSettings.getLastComment().getCode()))+"</img>\n";
 
+            if(!currentDateString.equals(formatDate.format(currentTime.getTime()))){
+                printerText+="[L]\n";
+                currentDateString=formatDate.format(currentTime.getTime());
+                printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageL(currentDateString))+"</img>\n";
+
+            }
+            printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageAuto(genTemperature(formatTime.format(currentTime.getTime()),false,false)))+"</img>\n";
+            printerText+="[L]"+genTemperature(formatTime.format(currentTime.getTime()),false,false)+"\n";
+        }
+
+        printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageAuto(genTemperature(formatTime.format(start.getTime()),false,true)))+"</img>\n";
+        printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageLineFeed())+"</img>\n";
+        printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageL(printerSettings.getLastComment().getCode()))+"</img>\n";
 
 
         saveData("lastPrint",printerText);
@@ -495,7 +494,7 @@ public class MainActivity extends AppCompatActivity {
             printerText+=genTemperature(formatTime.format(currentTime.getTime()),false,false);
             printerText+="\n";
         }
-        //printerText+="[R]"+genTemperature(formatTime.format(start.getTime()),false,true) + "\n\n";
+        //printerText+="[R]"+genTemperature(formatTime.format(start.getTime()),false,true) + "\n";
         printerText+=genTemperature(formatTime.format(start.getTime()),false,true);
         //printerText+="[L]"+printerSettings.getLastComment().getCode() + "\n";
         printerText+=printerSettings.getLastComment().getCode();
@@ -558,10 +557,10 @@ public class MainActivity extends AppCompatActivity {
             returnString +=AB;
             Float resultA = printerSettings.getTemperatureA().floatValue()-(getPlusMinus()*random(chaA,1));
             if(resultA>0){
-                returnString +="＋";
+                returnString +='+';
             }else{
                 resultA = Math.abs(resultA);
-                returnString +="－";
+                returnString +='-';
             }
             returnString +=ceil(resultA.doubleValue(),1);
         }
@@ -574,10 +573,10 @@ public class MainActivity extends AppCompatActivity {
             Float resultB = printerSettings.getTemperatureB().floatValue()-(getPlusMinus()*random(chaB,1));
 
             if(resultB>0){
-                returnString +="＋";
+                returnString +='+';
             }else{
                 resultB = Math.abs(resultB);
-                returnString +="－";
+                returnString +='-';
             }
             returnString +=ceil(resultB.doubleValue(),1);
         }

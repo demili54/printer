@@ -63,7 +63,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:background="@drawable/border"
-            android:focusable="false"
+
             android:text="12가3456"
             android:textColor="@color/black"
             android:textSize="25dp" />
@@ -342,7 +342,7 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:background="@color/white"
-        android:text=" "
+        android:text=""
         android:textColor="@color/black"
         android:textSize="26dp"
         android:visibility="invisible" />
@@ -352,11 +352,29 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:background="@color/white"
-        android:paddingLeft="30dp"
         android:text=""
         android:textColor="@color/black"
         android:textSize="26dp"
         android:visibility="invisible" />
 
+    <TextView
+        android:id="@+id/imageTempC"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/white"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="26dp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/imageTempLineFeed"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/white"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="26dp"
+        android:visibility="invisible" />
 
 </LinearLayout>
