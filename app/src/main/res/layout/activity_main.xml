@@ -345,6 +345,7 @@
         android:text=""
         android:textColor="@color/black"
         android:textSize="26dp"
+        android:textStyle="normal"
         android:visibility="invisible" />
 
     <TextView
@@ -355,6 +356,7 @@
         android:text=""
         android:textColor="@color/black"
         android:textSize="26dp"
+        android:textStyle="normal"
         android:visibility="invisible" />
 
     <TextView
@@ -363,6 +365,7 @@
         android:layout_height="35dp"
         android:background="@color/white"
         android:text=""
+        android:textStyle="normal"
         android:textColor="@color/black"
         android:textSize="26dp"
         android:visibility="invisible" />
@@ -370,11 +373,12 @@
     <TextView
         android:id="@+id/imageTempLineFeed"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="7dp"
         android:background="@color/white"
         android:text=""
         android:textColor="@color/black"
         android:textSize="26dp"
+        android:textStyle="normal"
         android:visibility="invisible" />
 
 </LinearLayout>

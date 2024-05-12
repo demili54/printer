@@ -393,20 +393,24 @@ public class MainActivity extends AppCompatActivity {
         timeEndPickerDialog.show();
     }
 
-
-
+    private String lPrint(String text){
+        return "[L]"+text+"\n";
+    }
+    private String lFeed(AsyncEscPosPrinter printer) {
+        return "[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageLineFeed())+"</img>\n";
+    }
     /**
      * Asynchronous printing
      */
     @SuppressLint("SimpleDateFormat")
     public AsyncEscPosPrinter getAsyncEscPosPrinter(DeviceConnection printerConnection) {
-        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy年 MM月 dd日");
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy年MM月dd日");
         SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
         SimpleDateFormat formatDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         double gap = Math.random();
 
-
+        //AsyncEscPosPrinter printer = new AsyncEscPosPrinter(printerConnection, 203, 48f, 32);
         AsyncEscPosPrinter printer = new AsyncEscPosPrinter(printerConnection, 203, 48f, 32);
 
 
@@ -426,8 +430,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         String currentDateString = formatDate.format(end.getTime());
-        printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageL(currentDateString))+"</img>\n";
-        printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageAuto(genTemperature(formatTime.format(end.getTime()),true,false)))+"</img>\n";
+        printerText+=lPrint(currentDateString);
+        printerText+=lFeed(printer);
+        printerText+=lPrint(genTemperature(formatTime.format(end.getTime()),true,false));
+        printerText+=lFeed(printer);
         while(run){
             currentTime.add(Calendar.MINUTE, -1*printerSettings.getMinutes());
             if(start.after(currentTime) || start.equals(currentTime)){
@@ -438,16 +444,19 @@ public class MainActivity extends AppCompatActivity {
             if(!currentDateString.equals(formatDate.format(currentTime.getTime()))){
                 printerText+="[L]\n";
                 currentDateString=formatDate.format(currentTime.getTime());
-                printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageL(currentDateString))+"</img>\n";
+                printerText+=lPrint(currentDateString);
+                printerText+=lFeed(printer);
 
             }
-            printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageAuto(genTemperature(formatTime.format(currentTime.getTime()),false,false)))+"</img>\n";
-            printerText+="[L]"+genTemperature(formatTime.format(currentTime.getTime()),false,false)+"\n";
+            printerText+=lPrint(genTemperature(formatTime.format(currentTime.getTime()),false,false));
+            printerText+=lFeed(printer);
+
         }
 
-        printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageAuto(genTemperature(formatTime.format(start.getTime()),false,true)))+"</img>\n";
-        printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageLineFeed())+"</img>\n";
-        printerText+="[L]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer,textToImageService.createImageL(printerSettings.getLastComment().getCode()))+"</img>\n";
+        printerText+=lPrint(genTemperature(formatTime.format(start.getTime()),false,true));
+        printerText+="[L]\n";
+        printerText+="[L]\n";
+        printerText+=lPrint(printerSettings.getLastComment().getCode());
 
 
         saveData("lastPrint",printerText);
@@ -535,12 +544,15 @@ public class MainActivity extends AppCompatActivity {
         return printer;
     }
     private String genTemperature(String date,boolean start,boolean end){
-
-
-        String returnString = date;
-        String position = "     ";
-        String AB = "B:";
-
+        String returnString ="";
+        if(!(printerSettings.getCheckA()&&printerSettings.getCheckB())){
+            returnString+="      ";
+        }else{
+            returnString+="  ";
+        }
+        returnString += date;
+        String position = "    ";
+        String AB = "";
         if(start){
             position="S   ";
         }else if(end){
@@ -553,7 +565,7 @@ public class MainActivity extends AppCompatActivity {
         float chaA = ceil((printerSettings.getTemperatureACha()+(printerSettings.getTemperatureAChaJum()/10f))/2d,1);
         float chaB = ceil((printerSettings.getTemperatureBCha()+(printerSettings.getTemperatureBChaJum()/10f))/2d,1);
         if(printerSettings.getCheckA()){
-            AB="A: ";
+            AB="A:";
             returnString +=AB;
             Float resultA = printerSettings.getTemperatureA().floatValue()-(getPlusMinus()*random(chaA,1));
             if(resultA>0){
@@ -568,7 +580,7 @@ public class MainActivity extends AppCompatActivity {
             if(printerSettings.getCheckA()){
                 returnString +="  ";
             }
-            AB="B: ";
+            AB="B:";
             returnString +=AB;
             Float resultB = printerSettings.getTemperatureB().floatValue()-(getPlusMinus()*random(chaB,1));
 
@@ -582,8 +594,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        returnString+=" ℃";
-
+        //returnString+="℃";
+        returnString+="℃";
 
 
 
