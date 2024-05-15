@@ -63,7 +63,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:background="@drawable/border"
-
+            android:focusable="false"
             android:text="12가3456"
             android:textColor="@color/black"
             android:textSize="25dp" />
