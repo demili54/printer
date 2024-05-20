@@ -44,6 +44,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 timeStartPickerDialog.hide();
             }
         }, startTimeCal.get(Calendar.HOUR_OF_DAY), startTimeCal.get(Calendar.MINUTE), false);
-
+        Objects.requireNonNull(timeStartPickerDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
         Calendar endTimeCal = Calendar.getInstance();
         timeEndPickerDialog = new TimePickerDialog(this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }, endTimeCal.get(Calendar.HOUR_OF_DAY), endTimeCal.get(Calendar.MINUTE), false);
-
+        Objects.requireNonNull(timeEndPickerDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
         Calendar endDateCal = Calendar.getInstance();
         dateEndPickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
