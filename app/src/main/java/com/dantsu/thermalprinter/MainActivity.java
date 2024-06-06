@@ -598,7 +598,7 @@ public class MainActivity extends AppCompatActivity {
 
         //returnString+="℃";
 //        returnString+="°C";
-//        returnString+="℃";
+////        returnString+="℃";
         returnString+="゜C";
 
 
