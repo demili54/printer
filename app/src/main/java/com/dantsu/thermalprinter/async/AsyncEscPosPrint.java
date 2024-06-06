@@ -63,7 +63,7 @@ public abstract class AsyncEscPosPrint extends AsyncTask<AsyncEscPosPrinter, Int
                     printerData.getPrinterDpi(),
                     printerData.getPrinterWidthMM(),
                     printerData.getPrinterNbrCharactersPerLine(),
-                    new EscPosCharsetEncoding("GB18030", 8)
+                    new EscPosCharsetEncoding("GB18030", 16)
 
             );
             //new EscPosCharsetEncoding("GB2312", 16)

@@ -41,6 +41,7 @@ import com.dantsu.thermalprinter.async.AsyncEscPosPrinter;
 import com.dantsu.thermalprinter.async.AsyncUsbEscPosPrint;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -596,7 +597,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         //returnString+="℃";
-        returnString+="℃";
+//        returnString+="°C";
+//        returnString+="℃";
+        returnString+="゜C";
+
+
 
 
 
